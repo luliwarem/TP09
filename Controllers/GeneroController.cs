@@ -53,29 +53,31 @@ public class GeneroController : ControllerBase
     }
     
     [HttpPost]
-    public IActionResult Post(Genero g){
+    public IActionResult Post(string nombre){
         
-        if(g.Nombre == null || g.Nombre == ""){
+        if(nombre == null || nombre == ""){
             return BadRequest();
         }
         
-        BD.AgregarGenero(g);
+        BD.AgregarGenero(nombre);
         return CreatedAtAction(nameof(Post),null);
     }
 
     [HttpPut]
-    public IActionResult Put(Genero g, int id){
+    public IActionResult Put(int id, string nombre){
         
         
         if(id < 1){
             return BadRequest();   
         }
 
+        Genero g = BD.ObtenerGenero(id);
+
         if(g == null){
             return NotFound();
         }
         
-        BD.ModificarGenero(id,g.Nombre);
+        BD.ModificarGenero(id,nombre);
 
         return Ok();
 

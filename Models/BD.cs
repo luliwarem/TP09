@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class BD
 {
 
-    private static string _connectionString = @"Server=A-PHZ2-AMI-008;DataBase=TheBookFair;Trusted_Connection=True";
+    private static string _connectionString = @"Server=A-PHZ2-CIDI-009;DataBase=TheBookFair;Trusted_Connection=True";
 
     public static List<Genero> ObtenerGenero()
     {
@@ -22,21 +22,19 @@ public class BD
     public static Genero ObtenerGenero(int id){
         
         Genero genero = null;
-        string sql = "SELECT * FROM Genero WHERE IdGenero = @Pid ";
+        string sql = "SELECT * FROM Genero WHERE IdGenero = @pId ";
         using(SqlConnection db = new SqlConnection(_connectionString)){
-            genero = db.QueryFirstOrDefault<Genero>(sql, new { pId = genero.IdGenero });
+            genero = db.QueryFirstOrDefault<Genero>(sql, new { pId = id });
         }
         return genero;
     }
 
-    public static void AgregarGenero(Genero g){
+    public static void AgregarGenero(string nombre){
         string sql = "INSERT INTO Genero VALUES (@pNombre)";
         using(SqlConnection db = new SqlConnection(_connectionString)){
-            db.Execute(sql, new {pNombre = g.Nombre});
+            db.Execute(sql, new {pNombre = nombre});
         }
-    }
-
-    public static Genero EliminarGenero(int id){
+    }  public static Genero EliminarGenero(int id){
         
         Genero genero = null;
         string sql = "DELETE * FROM Genero WHERE IdGenero = @pId ";
